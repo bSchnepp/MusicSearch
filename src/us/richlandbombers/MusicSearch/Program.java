@@ -5,12 +5,14 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import us.richlandbombers.MusicSearch.util.ErrorReporter;
+
 public class Program
 {
     ////////////////////////////////////////////////////////////
     // REQUIRES JVASSISTER TO BUILD.
     ////////////////////////////////////////////////////////////
-    
+
     private JFrame jf;
     private JPanel contentPane;	//Main content pane, where we stick tabs and stuff... we use the actual JFrame's content pane for other things.
                                //(This is to keep consistency between PC (Both Linux and BSD), Mac, and Wintel machines.
@@ -38,5 +40,11 @@ public class Program
     {
 	Program pgrm = new Program();
 	pgrm.init();
+	test();
+    }
+
+    public static void test()
+    {
+	ErrorReporter.reportError(new Exception());
     }
 }

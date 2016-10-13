@@ -22,16 +22,21 @@ public class ErrorReporter
 	    lines.add(emscnr.nextLine());
 	}
 	emscnr.close();
-	String[] strln = (String[]) ArrayUtility.arrayListToArray(lines);
+	Object[] objs = ArrayUtility.arrayListToArray(lines);
+	String[] strs = new String[objs.length];
+	for (int i = 0; i < strs.length; i++)
+	{
+	    strs[i] = objs[i].toString();
+	}
 	StringBuilder finalString = new StringBuilder();
-	for (String n : strln)
+	for (String n : strs)
 	{
 	    finalString.append(n + "\n");
 	}
-	String[] finalMsg = new String[strln.length + 1];
-	for (int i = 1; i < strln.length; i++)
+	String[] finalMsg = new String[strs.length + 1];
+	for (int i = 1; i < strs.length; i++)
 	{
-	    finalMsg[i] = strln[i];
+	    finalMsg[i] = strs[i];
 	}
 	finalMsg[0] = "An unexpected error occured, printing stack trace:";
 	DisplayMessage.displayMessage(finalMsg);
