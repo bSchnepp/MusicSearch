@@ -1,0 +1,14 @@
+This class handles the main method and all associated functions with the main execution space -- it shouldn't be touched by other classes.
+
+Items:
+    private JFrame jf;
+    private JPanel contentPane;
+    
+    private Program();
+    private void init();
+    
+    
+    
+jf is our main JFrame, where most of the project takes place.
+contentpane is our actual space where content is added -- It does our management of searches, results, etc. It's in a JPanel so we can have other things in the top bar.
+
