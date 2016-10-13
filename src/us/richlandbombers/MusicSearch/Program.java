@@ -5,7 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import us.richlandbombers.MusicSearch.util.ErrorReporter;
+import com.gmail.bschneppdev.jvassister.util.ErrorReporter;
 
 public class Program
 {

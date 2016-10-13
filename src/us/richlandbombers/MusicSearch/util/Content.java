@@ -8,6 +8,8 @@ import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import com.gmail.bschneppdev.jvassister.util.ErrorReporter;
+
 public class Content
 {
     public String[][] file;
