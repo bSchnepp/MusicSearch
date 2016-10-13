@@ -68,7 +68,7 @@ public class Content
 	    }
 	    catch (IOException exception)
 	    {
-		exception.printStackTrace();
+		ErrorReporter.reportError(exception);
 	    }
 	}
 	//TODO, bitwise overwrite (NOT APPEND).
