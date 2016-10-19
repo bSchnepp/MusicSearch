@@ -9,7 +9,6 @@ public class Interpreter
             "select",
             "find",
             "eval",
-            ""
-
+            "edit"
     };
 }

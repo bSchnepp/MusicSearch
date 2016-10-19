@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import com.gmail.bschneppdev.jvassister.util.ScreenSizeHandler;
 
@@ -14,13 +15,16 @@ import com.gmail.bschneppdev.jvassister.util.ScreenSizeHandler;
 public class DDWindow extends JPanel
 {
     private JComboBox<String> btn;
+    private JTextField field;
+    private JPanel pnl;
 
     public DDWindow(String[] options)
     {
 	super();	//Super is always our first call in Java.
+	field = new JTextField();
 	this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 	this.btn = new JComboBox<String>(options);
-	this.btn.setMaximumSize(new Dimension(ScreenSizeHandler.intWidth / 16, ScreenSizeHandler.intHeight / 16));
+	this.btn.setMaximumSize(new Dimension(ScreenSizeHandler.intWidth / 8, ScreenSizeHandler.intHeight / 8));
 	this.btn.setSelectedIndex(0);
 	this.btn.addActionListener(new ActionListener()
 	{
@@ -30,7 +34,13 @@ public class DDWindow extends JPanel
 		// TODO Auto-generated method stub
 	    }
 	});
-	this.add(btn);
+
+	pnl = new JPanel();
+	pnl.setLayout(new BoxLayout(pnl, BoxLayout.X_AXIS));
+	pnl.add(btn);
+	pnl.add(field);
+	field.setMaximumSize(new Dimension(ScreenSizeHandler.intWidth / 8, ScreenSizeHandler.intHeight / 8));
+	this.add(pnl);
     }
 
     public DDWindow()

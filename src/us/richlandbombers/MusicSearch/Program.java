@@ -1,23 +1,16 @@
 package us.richlandbombers.MusicSearch;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import com.gmail.bschneppdev.jvassister.util.ErrorReporter;
 
-import us.richlandbombers.MusicSearch.gui.DDContentPane;
-import us.richlandbombers.MusicSearch.gui.DDWindow;
 import us.richlandbombers.MusicSearch.gui.MTable;
 import us.richlandbombers.MusicSearch.gui.OKBtn;
 
@@ -28,82 +21,61 @@ public class Program
     ////////////////////////////////////////////////////////////
 
     private JFrame jf;
-    private JPanel contentPane;	//Main content pane, where we stick tabs and stuff... we use the actual JFrame's content pane for other things.
-                               //(This is to keep consistency between PC (Both Linux and BSD), Mac, and Wintel machines.
-
-    private JPanel mainpanel;
-
-    private JMenuBar menu;
-
-    private JMenu file;
-    private JMenu edit;
-    private JMenu features;
-
-    private DDContentPane cntpne;
-
-    private JMenuItem addQuery;
+    private ProgramPanel data;
+    private static JTabbedPane tabbedpane;
+    private static int counter = 1;
 
     private Program()
     {
 	this.jf = new JFrame("MusicSearch, written by Coders in the Community");
-	this.contentPane = new JPanel();
-	this.contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
+	this.data = new ProgramPanel();
+	Program.tabbedpane = new JTabbedPane();
+	Program.tabbedpane.add(data.getMainpanel(), "Search " + counter);
+	this.jf.getContentPane().add(tabbedpane);
+    }
 
-	this.menu = new JMenuBar();
-
-	this.file = new JMenu("File");
-	this.edit = new JMenu("Edit");
-	this.features = new JMenu("Features");
-
-	this.addQuery = new JMenuItem("Add Query");
-
-	this.addQuery.addActionListener(new ActionListener()
-	{
-
-	    @Override
-	    public void actionPerformed(ActionEvent e)
-	    {
-		Program.this.add(new DDWindow());
-	    }
-	});
-	this.features.add(addQuery);
-
-	this.mainpanel = new JPanel();
-	mainpanel.setLayout(new BorderLayout());
-	mainpanel.add(menu, BorderLayout.NORTH);
-	mainpanel.add(contentPane, BorderLayout.CENTER);
-	this.jf.getContentPane().add(mainpanel);
-	this.cntpne = new DDContentPane();
+    public static void addPage(ProgramPanel pnl)
+    {
+	Program.tabbedpane.add(pnl.getMainpanel(), "Search " + ++counter);
+	Program.init(pnl);
     }
 
     private void init()
     {
-	this.mainpanel.removeAll();
+	this.data.getMainpanel().removeAll();
 	MTable table = new MTable();
-	this.cntpne.refresh();
+	this.data.getCntpne().refresh();
 
-	this.menu.add(file);
-	this.menu.add(edit);
-	this.menu.add(features);
+	this.data.getMenu().add(data.getFile());
+	this.data.getMenu().add(data.getEdit());
+	this.data.getMenu().add(data.getFeatures());
 
-	this.contentPane.add(cntpne);
-	this.contentPane.add(table);
+	this.data.getContentPane().add(data.getCntpne());
+	this.data.getContentPane().add(table);
 
-	this.mainpanel.add(menu, BorderLayout.NORTH);
-	this.mainpanel.add(this.contentPane, BorderLayout.CENTER);
-	this.mainpanel.add(new OKBtn(), BorderLayout.SOUTH);
+	this.data.getMainpanel().add(data.getMenu(), BorderLayout.NORTH);
+	this.data.getMainpanel().add(this.data.getContentPane(), BorderLayout.CENTER);
+	this.data.getMainpanel().add(new OKBtn(), BorderLayout.SOUTH);
 	this.jf.pack();
 	this.jf.setVisible(true);
     }
 
-    private void redraw()
+    public static void init(ProgramPanel pnl)
     {
-	//TODO -- update the pane with all of it's new content.
-    }
+	pnl.removeAll();
+	MTable table = new MTable();
+	pnl.getCntpne().refresh();
 
-    public void add(DDWindow wds)
-    {
-	this.cntpne.add(wds);
+	pnl.getMenu().add(pnl.getFile());
+	pnl.getMenu().add(pnl.getEdit());
+	pnl.getMenu().add(pnl.getFeatures());
+
+	pnl.getContentPane().add(pnl.getCntpne());
+	pnl.getContentPane().add(table);
+
+	pnl.getMainpanel().add(pnl.getMenu(), BorderLayout.NORTH);
+	pnl.getMainpanel().add(pnl.getContentPane(), BorderLayout.CENTER);
+	pnl.getMainpanel().add(new OKBtn(), BorderLayout.SOUTH);
     }
 
     public static void main(String[] args)
@@ -130,7 +102,7 @@ public class Program
 
     private JMenuBar getSubMenu()
     {
-	return this.menu;
+	return this.data.getMenu();
     }
 
     private void setTitleName(String newName)
