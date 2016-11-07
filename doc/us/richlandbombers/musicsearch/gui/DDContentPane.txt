@@ -1,0 +1,1 @@
+This pane handles management of DDWindows, and allows for multiple to be on-screen, changed dynamically, etc. all at once.
